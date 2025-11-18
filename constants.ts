@@ -1,7 +1,7 @@
 import { Product } from './types';
 
-export const GOOGLE_SHEET_SCRIPT_URL = "YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE"; // User needs to replace this
-export const OWNER_PHONE_NUMBER = "919876543210"; // Replace with actual owner number
+export const GOOGLE_SHEET_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyhUkh643bfOt5u2KfyMF6cyp83sk7Gtkossi7TNCYdBo-P-La7ud4nc7DIxxPrc1OMsw/exec"; // User needs to replace this
+export const OWNER_PHONE_NUMBER = "+923333699250"; // Replace with actual owner number
 
 export const MOCK_PRODUCTS: Product[] = [
   {
