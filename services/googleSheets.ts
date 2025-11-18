@@ -8,7 +8,7 @@ export const submitOrderToSheet = async (orderData: OrderData): Promise<boolean>
   }
 
   try {
-    const response = await fetch(GOOGLE_SHEET_SCRIPT_URL, {
+    await fetch(GOOGLE_SHEET_SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors', // Important for client-side calls to Google Script
       headers: {
