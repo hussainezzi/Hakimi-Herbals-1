@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingBag, Leaf } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
 import { toggleCart } from '../store/cartSlice';
@@ -10,14 +10,16 @@ const Navbar: React.FC = () => {
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-hakimi-green/30 h-24 transition-all duration-300">
+    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-hakimi-green/30 h-28 transition-all duration-300">
       <div className="container mx-auto px-4 h-full flex items-center justify-between">
         {/* Logo Section */}
-        <div className="flex items-center gap-3 group cursor-pointer">
-          <div className="bg-hakimi-green/20 p-3 rounded-full transition-transform group-hover:scale-110 duration-300">
-             <Leaf className="w-8 h-8 text-hakimi-aqua" />
-          </div>
-          <div className="flex flex-col">
+        <div className="flex items-center gap-4 group cursor-pointer">
+          <img 
+            src="https://res.cloudinary.com/de0cllasz/image/upload/v1763403401/Generated_Image_November_17__2025_-_11_14PM-removebg-preview_fzcixa.png" 
+            alt="Hakimi Herbals Logo" 
+            className="h-24 w-auto object-contain transition-transform group-hover:scale-105 duration-300 drop-shadow-sm"
+          />
+          <div className="flex flex-col justify-center">
             <h1 className="text-2xl md:text-3xl font-bold text-hakimi-text tracking-tight">
               Hakimi Herbals
             </h1>
