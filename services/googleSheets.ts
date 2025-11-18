@@ -2,7 +2,7 @@ import { OrderData } from '../types';
 import { GOOGLE_SHEET_SCRIPT_URL } from '../constants';
 
 export const submitOrderToSheet = async (orderData: OrderData): Promise<boolean> => {
-  if (GOOGLE_SHEET_SCRIPT_URL === "YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE") {
+  if ((GOOGLE_SHEET_SCRIPT_URL as string) === "YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE") {
     console.warn("Google Sheet Script URL is not configured.");
     return true; // Simulate success if not configured
   }
