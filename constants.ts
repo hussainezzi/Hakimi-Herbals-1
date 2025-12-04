@@ -8,7 +8,7 @@ export const MOCK_PRODUCTS: Product[] = [
     id: 1,
     name: "Cool Water Essence",
     price: 450,
-    description: "https://res.cloudinary.com/de0cllasz/image/upload/v1763398425/76460601-9caa-4318-b791-f7668c33095e_bgxiot.jpg",
+    description: "A refreshing herbal essence that revitalizes the skin and provides a cooling sensation.",
     image: "https://res.cloudinary.com/de0cllasz/image/upload/v1763398425/76460601-9caa-4318-b791-f7668c33095e_bgxiot.jpg",
     category: "Featured"
   },
@@ -16,7 +16,7 @@ export const MOCK_PRODUCTS: Product[] = [
     id: 2,
     name: "Premium Cold Cream",
     price: 320,
-    description: "https://res.cloudinary.com/de0cllasz/image/upload/v1763398423/82cab0bb-4d3d-4608-a285-22cc8bb3f30c_edprsf.jpg",
+    description: "Rich, moisturizing cold cream designed to protect and nourish skin during harsh weather.",
     image: "https://res.cloudinary.com/de0cllasz/image/upload/v1763398423/82cab0bb-4d3d-4608-a285-22cc8bb3f30c_edprsf.jpg",
     category: "Featured"
   },
@@ -52,12 +52,20 @@ export const MOCK_PRODUCTS: Product[] = [
     image: "https://res.cloudinary.com/de0cllasz/image/upload/v1763398423/08142bdb-6f32-47cf-bbf1-b2ff25fb4e96_mwmiku.jpg",
     category: "Essentials"
   },
-   {
+  {
     id: 7,
-    name: "Rose Water Mist",
-    price: 180,
-    description: "Pure steam-distilled rose water toner for instant freshness.",
-    image: "https://res.cloudinary.com/de0cllasz/image/upload/v1763398422/f096c40f-6331-4c4e-9299-cddc1e91b156_cte2tx.jpg",
+    name: "Strawberry Lip Balm",
+    price: 150,
+    description: "Hydrating lip care with natural strawberry extracts for soft, protected lips.",
+    image: "https://res.cloudinary.com/de0cllasz/image/upload/v1764863342/b15d9f4b-1573-4108-947a-c184625bf17e_tqmh11.jpg",
     category: "Essentials"
+  },
+  {
+    id: 8,
+    name: "Pure Ginger Oil",
+    price: 450,
+    description: "Therapeutic ginger oil, excellent for joint pain relief and scalp stimulation.",
+    image: "https://res.cloudinary.com/de0cllasz/image/upload/v1764863340/6a8f77c0-3c24-4fc9-a579-6e6bddad69fd_vdkdue.jpg",
+    category: "Oils"
   }
 ];
