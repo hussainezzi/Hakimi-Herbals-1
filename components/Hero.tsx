@@ -1,32 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
+import { MOCK_PRODUCTS } from '../constants';
 
-const slides = [
-  {
-    id: 1,
-    title: "Pure Cool Water Essence",
-    subtitle: "Experience the freshness of nature.",
-    image: "https://res.cloudinary.com/de0cllasz/image/upload/v1763398425/1d368fea-45b6-41cf-b700-b43e892b9674_rylld1.jpg",
-    cta: "Shop Now",
-    targetId: "collection"
-  },
-  {
-    id: 2,
-    title: "Skin Nourishments",
-    subtitle: "Protect your skin this winter.",
-    image: "https://res.cloudinary.com/de0cllasz/image/upload/v1763398424/2cbfec1c-e591-4395-8c36-c86b67468349_qmt6zy.jpg",
-    cta: "Discover",
-    targetId: "featured"
-  },
-  {
-    id: 3,
-    title: "Organic Hair Therapies",
-    subtitle: "Root to tip nourishment.",
-    image: "https://res.cloudinary.com/de0cllasz/image/upload/v1763398422/484ec726-4493-4ae7-8e24-fa783da93859_h3xu7m.jpg",
-    cta: "Explore",
-    targetId: "collection"
-  }
-];
+const slides = MOCK_PRODUCTS.map(product => ({
+  id: product.id,
+  title: product.name,
+  subtitle: product.description,
+  image: product.image,
+  cta: "Shop Now",
+  targetId: "collection"
+}));
 
 const Hero: React.FC = () => {
   const [current, setCurrent] = useState(0);
@@ -62,15 +45,15 @@ const Hero: React.FC = () => {
             className="absolute inset-0 bg-cover bg-center transform hover:scale-105 transition-transform duration-[10s]"
             style={{ backgroundImage: `url(${slide.image})` }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-hakimi-text/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-hakimi-text/90 via-hakimi-text/40 to-transparent" />
           
           {/* Content */}
           <div className="absolute inset-0 flex items-center container mx-auto px-4 md:px-12">
             <div className="max-w-xl text-white space-y-6 transform translate-x-0 transition-transform duration-700 delay-100">
-              <h2 className="text-5xl md:text-6xl font-bold leading-tight drop-shadow-sm">
+              <h2 className="text-4xl md:text-6xl font-bold leading-tight drop-shadow-lg">
                 {slide.title}
               </h2>
-              <p className="text-xl md:text-2xl font-light text-hakimi-green drop-shadow-sm">
+              <p className="text-lg md:text-xl font-light text-hakimi-green drop-shadow-md line-clamp-3">
                 {slide.subtitle}
               </p>
               <button 
@@ -99,7 +82,7 @@ const Hero: React.FC = () => {
       </button>
 
       {/* Indicators */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2 flex-wrap justify-center px-4 w-full">
         {slides.map((_, idx) => (
           <button
             key={idx}
