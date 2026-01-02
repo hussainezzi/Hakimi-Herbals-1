@@ -119,7 +119,7 @@ const App: React.FC = () => {
                <h3 className="text-lg font-semibold mb-4 text-hakimi-green">Contact</h3>
                <p className="text-gray-400">Have questions? Reach out to us on WhatsApp for personalized consultations.</p>
                <div className="mt-4 text-hakimi-aqua font-bold">
-                 +91 98765 43210
+                 +92 333 3699205
                </div>
              </div>
           </div>
