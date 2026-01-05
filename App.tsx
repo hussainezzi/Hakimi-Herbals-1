@@ -1,18 +1,50 @@
-import React from 'react';
+
+import React, { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ProductCard from './components/ProductCard';
 import CartSidebar from './components/CartSidebar';
 import FeaturedCarousel from './components/FeaturedCarousel';
-import { MOCK_PRODUCTS } from './constants';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from './store/store';
+import { fetchProducts } from './store/productsSlice';
+import { Loader2 } from 'lucide-react';
 
 const App: React.FC = () => {
-  // Filter featured products. If none marked as featured, use the first 4.
-  const featuredProducts = MOCK_PRODUCTS.filter(p => p.category === 'Featured');
-  const displayFeatured = featuredProducts.length > 0 ? featuredProducts : MOCK_PRODUCTS.slice(0, 4);
-  
-  // Rest of the products for the grid
-  const gridProducts = MOCK_PRODUCTS;
+  const dispatch = useDispatch<AppDispatch>();
+  const { items: products, loading, error } = useSelector((state: RootState) => state.products);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  const featuredProducts = products.filter(p => p.category === 'Featured');
+  const displayFeatured = featuredProducts.length > 0 ? featuredProducts : products.slice(0, 4);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white flex-col gap-4">
+        <Loader2 className="w-12 h-12 text-hakimi-aqua animate-spin" />
+        <p className="text-hakimi-text font-medium animate-pulse">Loading Hakimi Herbals...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white flex-col gap-4 px-4 text-center">
+        <div className="text-red-500 text-4xl mb-2">⚠️</div>
+        <h2 className="text-2xl font-bold text-hakimi-text">Unable to Load Products</h2>
+        <p className="text-gray-500 max-w-md">There was an issue connecting to our herbal inventory. Please check your internet connection and try again.</p>
+        <button 
+          onClick={() => dispatch(fetchProducts())}
+          className="mt-4 px-6 py-2 bg-hakimi-aqua text-white rounded-full font-bold"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col relative selection:bg-hakimi-aqua selection:text-white">
@@ -23,24 +55,26 @@ const App: React.FC = () => {
         <Hero />
         
         {/* Featured Products Section */}
-        <section id="featured" className="py-16 bg-white relative overflow-hidden">
-           <div className="absolute top-0 left-0 w-full h-1/2 bg-hakimi-green/5 skew-y-3 transform origin-top-right z-0"></div>
-           <div className="container mx-auto px-4 relative z-10">
-            <div className="flex items-end justify-between mb-10 px-2">
-              <div>
-                <span className="text-hakimi-aqua font-bold tracking-widest uppercase text-xs md:text-sm">Handpicked Favorites</span>
-                <h2 className="text-3xl md:text-4xl font-bold text-hakimi-text mt-2">Featured Products</h2>
+        {displayFeatured.length > 0 && (
+          <section id="featured" className="py-16 bg-white relative overflow-hidden">
+             <div className="absolute top-0 left-0 w-full h-1/2 bg-hakimi-green/5 skew-y-3 transform origin-top-right z-0"></div>
+             <div className="container mx-auto px-4 relative z-10">
+              <div className="flex items-end justify-between mb-10 px-2">
+                <div>
+                  <span className="text-hakimi-aqua font-bold tracking-widest uppercase text-xs md:text-sm">Handpicked Favorites</span>
+                  <h2 className="text-3xl md:text-4xl font-bold text-hakimi-text mt-2">Featured Products</h2>
+                </div>
+                <button 
+                  onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="text-hakimi-text hover:text-hakimi-aqua font-medium transition-colors text-sm md:text-base hidden md:block"
+                >
+                  View Full Collection →
+                </button>
               </div>
-              <button 
-                onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}
-                className="text-hakimi-text hover:text-hakimi-aqua font-medium transition-colors text-sm md:text-base hidden md:block"
-              >
-                View Full Collection →
-              </button>
-            </div>
-            <FeaturedCarousel products={displayFeatured} />
-           </div>
-        </section>
+              <FeaturedCarousel products={displayFeatured} />
+             </div>
+          </section>
+        )}
 
         {/* All Products Grid Section */}
         <section id="collection" className="py-20 bg-gray-50/50">
@@ -55,7 +89,7 @@ const App: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {gridProducts.map(product => (
+              {products.map(product => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
@@ -119,7 +153,7 @@ const App: React.FC = () => {
                <h3 className="text-lg font-semibold mb-4 text-hakimi-green">Contact</h3>
                <p className="text-gray-400">Have questions? Reach out to us on WhatsApp for personalized consultations.</p>
                <div className="mt-4 text-hakimi-aqua font-bold">
-                 +92 333 3699205
+                 +92 3336645253 , +923003614552, +923333699205
                </div>
              </div>
           </div>

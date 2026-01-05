@@ -1,25 +1,32 @@
+
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
-import { MOCK_PRODUCTS } from '../constants';
-
-const slides = MOCK_PRODUCTS.map(product => ({
-  id: product.id,
-  title: product.name,
-  subtitle: product.description,
-  image: product.image,
-  cta: "Shop Now",
-  targetId: "collection"
-}));
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 const Hero: React.FC = () => {
+  const products = useSelector((state: RootState) => state.products.items);
   const [current, setCurrent] = useState(0);
 
+  // Use the first few products for the hero slider
+  const slides = products.slice(0, 5).map(product => ({
+    id: product.id,
+    title: product.name,
+    subtitle: product.description,
+    image: product.image,
+    cta: "Shop Now",
+    targetId: "collection"
+  }));
+
   useEffect(() => {
+    if (slides.length <= 1) return;
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
+
+  if (slides.length === 0) return null;
 
   const nextSlide = () => setCurrent((prev) => (prev + 1) % slides.length);
   const prevSlide = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
@@ -40,14 +47,12 @@ const Hero: React.FC = () => {
             index === current ? 'opacity-100 z-10' : 'opacity-0 z-0'
           }`}
         >
-          {/* Background Image with Overlay */}
           <div 
             className="absolute inset-0 bg-cover bg-center transform hover:scale-105 transition-transform duration-[10s]"
             style={{ backgroundImage: `url(${slide.image})` }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-hakimi-text/90 via-hakimi-text/40 to-transparent" />
           
-          {/* Content */}
           <div className="absolute inset-0 flex items-center container mx-auto px-4 md:px-12">
             <div className="max-w-xl text-white space-y-6 transform translate-x-0 transition-transform duration-700 delay-100">
               <h2 className="text-4xl md:text-6xl font-bold leading-tight drop-shadow-lg">
@@ -67,32 +72,34 @@ const Hero: React.FC = () => {
         </div>
       ))}
 
-      {/* Controls */}
-      <button 
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 hover:bg-white/30 text-white backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0"
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
-      <button 
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 hover:bg-white/30 text-white backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0"
-      >
-        <ChevronRight className="w-6 h-6" />
-      </button>
+      {slides.length > 1 && (
+        <>
+          <button 
+            onClick={prevSlide}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 hover:bg-white/30 text-white backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button 
+            onClick={nextSlide}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 hover:bg-white/30 text-white backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
 
-      {/* Indicators */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2 flex-wrap justify-center px-4 w-full">
-        {slides.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => setCurrent(idx)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              idx === current ? 'bg-hakimi-aqua w-8' : 'bg-white/50 hover:bg-white w-2'
-            }`}
-          />
-        ))}
-      </div>
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2 flex-wrap justify-center px-4 w-full">
+            {slides.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrent(idx)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  idx === current ? 'bg-hakimi-aqua w-8' : 'bg-white/50 hover:bg-white w-2'
+                }`}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };
