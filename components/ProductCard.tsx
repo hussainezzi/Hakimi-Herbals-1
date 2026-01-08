@@ -12,7 +12,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 group flex flex-col h-full">
+    <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 group flex flex-col h-full hover:border-hakimi-sage/30">
       <div className="relative h-64 overflow-hidden bg-gray-50">
         <img 
           src={product.image} 
@@ -21,34 +21,34 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         />
         <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
           <div className="bg-white p-2 rounded-full shadow-md">
-            <ShoppingCart className="w-5 h-5 text-hakimi-aqua" />
+            <ShoppingCart className="w-5 h-5 text-hakimi-sage" />
           </div>
         </div>
-        <div className="absolute top-4 left-4 bg-hakimi-green/90 backdrop-blur-sm text-hakimi-text text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+        <div className="absolute top-4 left-4 bg-hakimi-forest/80 backdrop-blur-md text-hakimi-cream text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">
           {product.category}
         </div>
       </div>
       
-      <div className="p-6 flex flex-col flex-grow">
+      <div className="p-6 flex flex-col flex-grow bg-white">
         <div className="flex-grow">
-          <h3 className="text-xl font-bold text-hakimi-text mb-2 group-hover:text-hakimi-aqua transition-colors">
+          <h3 className="text-xl font-bold text-hakimi-forest mb-2 group-hover:text-hakimi-sage transition-colors">
             {product.name}
           </h3>
-          <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">
+          <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">
             {product.description}
           </p>
         </div>
         
-        <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-          <span className="text-2xl font-bold text-hakimi-text">
+        <div className="flex items-center justify-between mt-4 pt-4 border-t border-hakimi-cream">
+          <span className="text-2xl font-black text-hakimi-forest">
             Rs. {product.price}
           </span>
           <button
             onClick={() => dispatch(addToCart(product))}
-            className="bg-hakimi-aqua hover:bg-hakimi-text text-white px-4 py-2.5 rounded-xl flex items-center gap-2 transition-all duration-300 active:scale-95 shadow-hakimi-aqua/20 shadow-lg"
+            className="bg-hakimi-sage hover:bg-hakimi-forest text-white px-5 py-2.5 rounded-xl flex items-center gap-2 transition-all duration-300 active:scale-95 shadow-md font-bold"
           >
             <Plus className="w-4 h-4" />
-            <span className="font-medium">Add</span>
+            <span>Add</span>
           </button>
         </div>
       </div>

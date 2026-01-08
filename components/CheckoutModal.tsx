@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Send, Loader2 } from 'lucide-react';
+import { X, Send, Loader2, Leaf } from 'lucide-react';
 import { CustomerDetails, CartItem } from '../types';
 import { generateWhatsAppLink } from '../services/whatsapp';
 import { submitOrderToSheet } from '../services/googleSheets';
@@ -54,86 +54,89 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, items, t
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
-      <div className="absolute inset-0 bg-hakimi-text/60 backdrop-blur-sm transition-opacity" onClick={onClose} />
+      <div className="absolute inset-0 bg-hakimi-forest/70 backdrop-blur-md transition-opacity" onClick={onClose} />
       
-      <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-fade-in-up transform transition-all">
-        <div className="bg-gradient-to-r from-hakimi-aqua to-[#68aead] p-6 text-white flex justify-between items-center">
-          <div>
-            <h2 className="text-2xl font-bold">Checkout</h2>
-            <p className="text-hakimi-white/90 text-sm">Complete your order</p>
+      <div className="relative bg-hakimi-cream rounded-[2rem] shadow-2xl w-full max-w-md overflow-hidden animate-fade-in-up border border-hakimi-sage/20">
+        <div className="bg-hakimi-forest p-8 text-hakimi-cream flex justify-between items-center relative overflow-hidden">
+          <Leaf className="absolute -left-4 -bottom-4 w-24 h-24 text-hakimi-sage/10 rotate-12" />
+          <div className="relative z-10">
+            <h2 className="text-3xl font-bold tracking-tight">Final Step</h2>
+            <p className="text-hakimi-sage font-medium text-sm">Secure your herbal harvest</p>
           </div>
-          <button onClick={onClose} className="p-2 hover:bg-white/20 rounded-full transition-colors">
+          <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors relative z-10">
             <X className="w-6 h-6" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-            <input
-              required
-              type="text"
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-hakimi-aqua focus:ring-2 focus:ring-hakimi-aqua/20 outline-none transition-all"
-              placeholder="e.g. John Doe"
-              value={formData.name}
-              onChange={e => setFormData({...formData, name: e.target.value})}
-            />
-          </div>
+        <form onSubmit={handleSubmit} className="p-8 space-y-5 bg-white">
+          <div className="space-y-4">
+            <div>
+              <label className="block text-xs font-black text-hakimi-forest uppercase tracking-widest mb-1.5 ml-1">Full Name</label>
+              <input
+                required
+                type="text"
+                className="w-full px-5 py-3.5 rounded-2xl bg-hakimi-cream/50 border border-transparent focus:bg-white focus:border-hakimi-sage focus:ring-4 focus:ring-hakimi-sage/10 outline-none transition-all font-medium text-hakimi-forest"
+                placeholder="How shall we address you?"
+                value={formData.name}
+                onChange={e => setFormData({...formData, name: e.target.value})}
+              />
+            </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">WhatsApp Number</label>
-            <input
-              required
-              type="tel"
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-hakimi-aqua focus:ring-2 focus:ring-hakimi-aqua/20 outline-none transition-all"
-              placeholder="e.g. 9876543210"
-              value={formData.whatsapp}
-              onChange={e => setFormData({...formData, whatsapp: e.target.value})}
-            />
-          </div>
+            <div>
+              <label className="block text-xs font-black text-hakimi-forest uppercase tracking-widest mb-1.5 ml-1">WhatsApp Number</label>
+              <input
+                required
+                type="tel"
+                className="w-full px-5 py-3.5 rounded-2xl bg-hakimi-cream/50 border border-transparent focus:bg-white focus:border-hakimi-sage focus:ring-4 focus:ring-hakimi-sage/10 outline-none transition-all font-medium text-hakimi-forest"
+                placeholder="For delivery updates..."
+                value={formData.whatsapp}
+                onChange={e => setFormData({...formData, whatsapp: e.target.value})}
+              />
+            </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-            <input
-              required
-              type="email"
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-hakimi-aqua focus:ring-2 focus:ring-hakimi-aqua/20 outline-none transition-all"
-              placeholder="e.g. john@example.com"
-              value={formData.email}
-              onChange={e => setFormData({...formData, email: e.target.value})}
-            />
-          </div>
+            <div>
+              <label className="block text-xs font-black text-hakimi-forest uppercase tracking-widest mb-1.5 ml-1">Email Address</label>
+              <input
+                required
+                type="email"
+                className="w-full px-5 py-3.5 rounded-2xl bg-hakimi-cream/50 border border-transparent focus:bg-white focus:border-hakimi-sage focus:ring-4 focus:ring-hakimi-sage/10 outline-none transition-all font-medium text-hakimi-forest"
+                placeholder="Your digital contact..."
+                value={formData.email}
+                onChange={e => setFormData({...formData, email: e.target.value})}
+              />
+            </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Delivery Address</label>
-            <textarea
-              required
-              rows={3}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-hakimi-aqua focus:ring-2 focus:ring-hakimi-aqua/20 outline-none transition-all resize-none"
-              placeholder="Full street address..."
-              value={formData.address}
-              onChange={e => setFormData({...formData, address: e.target.value})}
-            />
+            <div>
+              <label className="block text-xs font-black text-hakimi-forest uppercase tracking-widest mb-1.5 ml-1">Delivery Address</label>
+              <textarea
+                required
+                rows={3}
+                className="w-full px-5 py-3.5 rounded-2xl bg-hakimi-cream/50 border border-transparent focus:bg-white focus:border-hakimi-sage focus:ring-4 focus:ring-hakimi-sage/10 outline-none transition-all resize-none font-medium text-hakimi-forest"
+                placeholder="Where should nature's gifts go?"
+                value={formData.address}
+                onChange={e => setFormData({...formData, address: e.target.value})}
+              />
+            </div>
           </div>
 
           <div className="pt-4">
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-hakimi-aqua hover:bg-[#68aead] text-white py-4 rounded-xl font-bold shadow-lg flex items-center justify-center gap-2 transition-all disabled:opacity-70 transform active:scale-[0.98]"
+              className="w-full bg-hakimi-terracotta hover:bg-hakimi-forest text-white py-5 rounded-2xl font-bold shadow-lg shadow-hakimi-terracotta/20 flex items-center justify-center gap-3 transition-all disabled:opacity-70 active:scale-[0.97] uppercase tracking-widest"
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="w-5 h-5 animate-spin" /> Processing...
+                  <Loader2 className="w-5 h-5 animate-spin" /> Preparing...
                 </>
               ) : (
                 <>
-                  Place Order via WhatsApp <Send className="w-4 h-4" />
+                  Finalize on WhatsApp <Send className="w-4 h-4" />
                 </>
               )}
             </button>
-            <p className="text-center text-xs text-gray-400 mt-3">
-              Order details will be drafted in your WhatsApp.
+            <p className="text-center text-[10px] text-gray-400 mt-4 uppercase font-bold tracking-tighter">
+              A private order draft will be prepared for you.
             </p>
           </div>
         </form>

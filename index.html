@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hakimi Herbals</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
               hakimi: {
-                text: '#4C586F',
-                aqua: '#78C1B3',
-                green: '#B2C9AB',
-                white: '#FFFFFF',
+                forest: '#2C3E2D',    /* Deep Forest: Typography & Headings */
+                sage: '#728C69',      /* Sage Green: Primary UI elements */
+                terracotta: '#C05A35',/* Terracotta: CTA or highlight accents */
+                cream: '#FDF8F1',     /* Warm Cream: Background */
               }
             },
             fontFamily: {
@@ -28,8 +29,8 @@
     <style>
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #FFFFFF;
-        color: #4C586F;
+        background-color: #FDF8F1;
+        color: #2C3E2D;
       }
       /* Hide scrollbar for Chrome, Safari and Opera */
       .no-scrollbar::-webkit-scrollbar {
@@ -39,6 +40,13 @@
       .no-scrollbar {
           -ms-overflow-style: none;  /* IE and Edge */
           scrollbar-width: none;  /* Firefox */
+      }
+      @keyframes fade-in-up {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fade-in-up {
+        animation: fade-in-up 0.3s ease-out forwards;
       }
     </style>
   <script type="importmap">
